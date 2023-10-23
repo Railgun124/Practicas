@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CarritoService } from '../models/carrito.service';
 
 @Component({
   selector: 'app-tab2',
@@ -7,6 +8,15 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
-  constructor() {}
+
+  public carritoArray: any;
+  public totalCompra: any;
+
+  constructor(private carritoService: CarritoService) { }
+
+  ionViewWillEnter() {
+    this.carritoArray = this.carritoService.getCarrito();
+    this.totalCompra = this.carritoService.getTotalCarrito();
+  }
 
 }

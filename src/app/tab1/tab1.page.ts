@@ -1,5 +1,6 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { Product } from '../models/product.model';
+import { CarritoService } from '../models/carrito.service';
 
 @Component({
   selector: 'app-tab1',
@@ -16,13 +17,13 @@ export class Tab1Page {
     "Limpieza",
     "Farmacia"
   ];
-  public carrito: { [productId: string]: { product: Product, quantity: number } } = {};
+  public carrito: { [productId: string]: { product: Product, quantity: number, subtotal: number  } } = {};
   public totalCompra: number = 0
-  public carritoArray: { product: Product, quantity: number }[] = [];
+  public carritoArray: { product: Product, quantity: number, subtotal: number }[] = [];
 
 
 
-  constructor()  {
+  constructor(private carritoService: CarritoService)  {
     this.products.push({
       name: "Coca Cola",
       price: 25,
@@ -72,11 +73,12 @@ export class Tab1Page {
     if (this.carrito[productId]) {
       // Si el producto ya está en el carrito, incrementa la cantidad
       this.carrito[productId].quantity += 1;
+      this.carrito[productId].subtotal += this.carrito[productId].product.price;
     } else {
       // Si es la primera vez que se agrega, crea una entrada en el carrito
-      this.carrito[productId] = { product, quantity: 1 };
+      this.carrito[productId] = { product, quantity: 1, subtotal: product.price};
     }
-  
+    this.carritoService.setCarrito(this.carrito);
     // Calcula el total de la compra
     this.calcularTotalCompra();
     this.actualizarCarritoArray();
@@ -88,6 +90,7 @@ export class Tab1Page {
       const item = this.carrito[productId];
       this.totalCompra += item.product.price * item.quantity;
     }
+    this.carritoService.setTotalCarrito(this.totalCompra);
   }
   
   private actualizarCarritoArray() {
