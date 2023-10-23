@@ -8,34 +8,42 @@
 
 <ion-content [fullscreen]="true" class="ion-content-custom">  
   <ion-grid>
+
     <ion-row>
       <ion-col>
         <ion-card>
-          <table>
-            <thead>    
-              <tr>        
-                <th><ion-card-title>Producto</ion-card-title></th>
-                <th><ion-card-title>Categoria</ion-card-title></th>
-                <th><ion-card-title>Precio Unitario</ion-card-title></th>
-                <th><ion-card-title>Cantidad</ion-card-title></th>
-                <th><ion-card-title>Subtotal</ion-card-title></th>               
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let p of carritoArray; let i = index" [ngClass]="{
-                'Frutas_y_Verduras': p.product.type === 'Frutas y Verduras',
-                'Abarrotes': p.product.type === 'Abarrotes',
-                'Limpieza': p.product.type === 'Limpieza',
-                'Farmacia': p.product.type === 'Farmacia'
-              }">
-                <td><ion-card-title>{{p.product.name}}</ion-card-title></td>
-                <td><ion-badge color="primary">{{ p.product.type }}</ion-badge></td>
-                <td>{{p.product.price}}</td>
-                <td>{{p.quantity}}</td>
-                <td>{{p.subtotal}}</td>
-              </tr>
-            </tbody>
-          </table>
+          <ion-card-header>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th><ion-card-title>Producto</ion-card-title></th>
+                    <th><ion-card-title>Categoria</ion-card-title></th>
+                    <th><ion-card-title>Precio Unitario</ion-card-title></th>
+                    <th><ion-card-title>Cantidad</ion-card-title></th>
+                    <th><ion-card-title>Subtotal</ion-card-title></th>  
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let p of carritoArray; let i = index" [ngClass]="{
+                    'Frutas_y_Verduras': p.product.type === 'Frutas y Verduras',
+                    'Abarrotes': p.product.type === 'Abarrotes',
+                    'Limpieza': p.product.type === 'Limpieza',
+                    'Farmacia': p.product.type === 'Farmacia'
+                  }">
+                    <td><ion-card-title>{{p.product.name}}</ion-card-title></td>
+                    <td><ion-badge color="primary">{{ p.product.type }}</ion-badge></td>
+                    <td>{{p.product.price}}</td>
+                    <td>{{p.quantity}}</td>
+                    <td>{{p.subtotal}}</td>
+                  </tr>
+                  <!-- Agrega más filas según sea necesario -->
+                </tbody>
+              </table>
+            </div>
+          </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
@@ -44,9 +52,21 @@
       <ion-col>
         <ion-card>
           <ion-card-header>
-            <ion-card-title>Total de la compra: {{ totalCompra | currency }}</ion-card-title>
           </ion-card-header>
+          <ion-card-content>
+            <div class="table-responsive">
+              <table class="table-compra">
+                <thead>
+                  <tr>
+                    <th colspan="4"><ion-card-title>Total de la compra:</ion-card-title></th>
+                    <th><ion-card-title>{{totalCompra | currency}}</ion-card-title></th>  
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </ion-card-content>
         </ion-card>
+        
       </ion-col>
     </ion-row>
 
