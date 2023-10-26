@@ -19,9 +19,6 @@ export class Tab1Page {
   ];
   public carrito: { [productId: string]: { product: Product, quantity: number, subtotal: number  } } = {};
   public totalCompra: number = 0
-  public carritoArray: { product: Product, quantity: number, subtotal: number }[] = [];
-
-
 
   constructor(private carritoService: CarritoService)  {
     this.products.push({
@@ -29,31 +26,34 @@ export class Tab1Page {
       price: 25,
       description: "lorem ipsum dolor sit amet.",
       photo: "https://picsum.photos/500/300?random=1",
-      type: "Abarrotes"
+      type: "Abarrotes",
+      favorite: false
     });
     this.products.push({
       name: "Aguacate",
       price: 30,
       description: "lorem ipsum dolor sit amet.",
       photo: "https://picsum.photos/500/300?random=1",
-      type: "Frutas y Verduras"
+      type: "Frutas y Verduras",
+      favorite: false
     });
     this.products.push({
       name: "Jabón Zote",
       price: 19,
       description: "lorem ipsum dolor sit amet.",
       photo: "https://picsum.photos/500/300?random=1",
-      type: "Limpieza"
+      type: "Limpieza",
+      favorite: false
     });
     this.products.push({
       name: "Aspirina",
       price: 100,
       description: "lorem ipsum dolor sit amet.",
       photo: "https://picsum.photos/500/300?random=1",
-      type: "Farmacia"
+      type: "Farmacia",
+      favorite: false
     });
 
-    this.productsFounds = this.products;
     this.productsFounds = this.products;
   }
 
@@ -79,9 +79,14 @@ export class Tab1Page {
       this.carrito[productId] = { product, quantity: 1, subtotal: product.price};
     }
     this.carritoService.setCarrito(this.carrito);
+    this.carritoService.setCar(this.carrito);
     // Calcula el total de la compra
     this.calcularTotalCompra();
-    this.actualizarCarritoArray();
+  }
+
+  public cambiarFavorito(ind: number): void {
+    this.productsFounds[ind].favorite = !this.productsFounds[ind].favorite;
+    this.carritoService.setFavorito(this.productsFounds.filter((item) => item.favorite== true));
   }
 
   private calcularTotalCompra(): void {
@@ -92,9 +97,11 @@ export class Tab1Page {
     }
     this.carritoService.setTotalCarrito(this.totalCompra);
   }
-  
-  private actualizarCarritoArray() {
-    this.carritoArray = Object.values(this.carrito);
+
+  ionViewWillEnter() {
+    this.carrito = this.carritoService.getCar();
+    this.totalCompra = this.carritoService.getTotalCarrito();
   }
+
   
 }

@@ -1,0 +1,30 @@
+.Frutas_y_Verduras ion-badge {
+background-color: green;
+}
+
+.Limpieza ion-badge {
+background-color: blue;
+}
+
+.Abarrotes ion-badge {
+background-color: red;
+}
+
+.Farmacia ion-badge {
+background-color: orange;
+}
+
+.product-info {
+display: flex;
+flex-direction: row;
+justify-content: start;
+}
+
+.botones {
+display: flex;
+justify-content: space-between;
+}
+
+.favorito {
+--background: transparent;
+}

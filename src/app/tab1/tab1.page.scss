@@ -50,3 +50,11 @@
     font-weight: bold;
   }
   
+  .botones {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .favorito {
+    --background: transparent;
+  }

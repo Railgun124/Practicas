@@ -31,56 +31,23 @@
           <img [src]="product.photo + i" alt="">
           <ion-card-header>
             <div class="product-info">
-              <ion-card-title>{{ product.name }}</ion-card-title>
-              <ion-badge color="primary">{{ product.type }}</ion-badge>
+              <ion-card-title>{{ product.name }} 
+                <ion-badge color="primary">{{ product.type }}</ion-badge>
+              </ion-card-title>
             </div>
             <ion-card-subtitle>{{ product.price | currency }}</ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
             {{ product.description }}<br>
-            <ion-button (click)="agregar(product)">Agregar</ion-button>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
+            <ion-row class="botones">
+              <ion-button (click)="agregar(product)">Agregar</ion-button>
 
-    <ion-row>
-      <ion-col>
-        <ion-card>
-          <ion-card-header>
-            <ion-card-title>Carrito de compras</ion-card-title>
-          </ion-card-header>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col *ngFor="let entry of carritoArray; let i = index">
-        <ion-card [ngClass]="{
-          'Frutas_y_Verduras': entry.product.type === 'Frutas y Verduras',
-          'Abarrotes': entry.product.type === 'Abarrotes',
-          'Limpieza': entry.product.type === 'Limpieza',
-          'Farmacia': entry.product.type === 'Farmacia'
-        }">
-          <ion-card-header>
-            <ion-card-title>{{ entry.product.name }}</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <ion-badge color="primary">{{ entry.product.type }}</ion-badge>
-            <p>{{ entry.product.description }}</p>
-            <p>Cantidad: {{ entry.quantity }}</p>
-            <p>Precio por unidad: {{ entry.product.price | currency }}</p>
+              <ion-button aria-label="Favorite" class="favorito" (click)="cambiarFavorito(i)">
+                <ion-icon [name]= "product.favorite ? 'heart': 'heart-outline'" aria-hidden="true"></ion-icon>
+              </ion-button>
+            </ion-row>
+            
           </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-    
-    <ion-row>
-      <ion-col>
-        <ion-card>
-          <ion-card-header>
-            <ion-card-title>Total de la compra: {{ totalCompra | currency }}</ion-card-title>
-          </ion-card-header>
         </ion-card>
       </ion-col>
     </ion-row>
