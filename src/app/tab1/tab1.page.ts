@@ -103,5 +103,17 @@ export class Tab1Page {
     this.totalCompra = this.carritoService.getTotalCarrito();
   }
 
+  public eliminar(product: Product): void {
+    const productId = product.name;
+
+    if (this.carrito[productId].quantity > 1) {
+      this.carrito[productId].quantity -= 1;
+    } else {
+      delete this.carrito[productId];
+    }
+    this.calcularTotalCompra();
+  }
+  
+  
   
 }

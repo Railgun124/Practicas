@@ -38,6 +38,7 @@
                     <td>{{p.product.price}}</td>
                     <td>{{p.quantity}}</td>
                     <td>{{p.subtotal}}</td>
+                    <td><ion-button (click)="deleteItem(p.product)">Eliminar</ion-button></td>
                   </tr>
                   <!-- Agrega más filas según sea necesario -->
                 </tbody>
@@ -64,6 +65,18 @@
                 </thead>
               </table>
             </div>
+          </ion-card-content>
+        </ion-card>
+        
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-button>Comprar</ion-button>
           </ion-card-content>
         </ion-card>
         

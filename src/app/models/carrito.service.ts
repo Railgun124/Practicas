@@ -13,6 +13,14 @@ export class CarritoService {
 
   constructor() { }
 
+  deleteCarritoArray(productToRemove: Product) {
+
+    this.carritoArray = this.carritoArray.filter(item => {
+      return item.product.name !== productToRemove.name; 
+    });
+  
+  }
+
   setCarrito(carrito: { [productId: string]: { product: Product, quantity: number, subtotal: number  } }) {
     this.carritoArray = Object.values(carrito);
   }
