@@ -1,0 +1,34 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Tab4
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    
+    <ion-row>
+      <ion-col size="6" size-xs="12" size-sm="6" *ngFor="let purchase of carritoArray; ">
+        <ion-card>
+          <ion-card-header>
+              <ion-card-title>
+                {{purchase.date}}<br>
+                <div *ngFor="let product of purchase.cart">
+                  {{product.product.name}}
+                </div>
+                <div *ngFor="let item of purchase.cart">
+                  {{item.product.price * item.quantity}}
+                  <ion-button (click)="addToCart(purchase.cart)"> Comprar</ion-button>
+                </div>
+              </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -5,7 +5,7 @@ import { Product } from '../models/product.model';
   providedIn: 'root'
 })
 export class CarritoService {
-
+  purchases: {date: string, cart: {product: Product, quantity: number}[] }[] = [];
   public carritoArray: { product: Product, quantity: number, subtotal: number }[] = [];
   public favoritosArray: any;
   public totalCarrito: number = 0;
@@ -13,12 +13,34 @@ export class CarritoService {
 
   constructor() { }
 
+  setPurchasedCart(cart: any) {
+    this.carritoArray = cart;
+  }
+  
   deleteCarritoArray(productToRemove: Product) {
-
+    // Save cart before deleting
+    
     this.carritoArray = this.carritoArray.filter(item => {
       return item.product.name !== productToRemove.name; 
     });
   
+  }
+
+  clearCart() {
+    // Save cart 
+    this.purchases.push({
+      date: new Date().toISOString(), 
+      cart: this.carritoArray
+    });
+  
+    // Clear cart
+    this.carritoArray = [];
+    this.totalCarrito=0;
+  
+  }
+
+  getPurchases() {
+    return this.purchases; 
   }
 
   setCarrito(carrito: { [productId: string]: { product: Product, quantity: number, subtotal: number  } }) {

@@ -39,6 +39,16 @@ export class Tab2Page {
     }
     this.carritoService.setTotalCarrito(this.totalCompra);
   }
+
+  onBuyClick() {
+
+    this.carritoService.clearCart();
+    this.carritoArray=[];
+    this.totalCompra=0;
+    this.carritoService.setCarrito(this.carritoArray);
+    this.carritoService.setCar(this.carritoArray);
+  
+  }
   
 
 }

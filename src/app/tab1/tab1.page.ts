@@ -101,6 +101,8 @@ export class Tab1Page {
   ionViewWillEnter() {
     this.carrito = this.carritoService.getCar();
     this.totalCompra = this.carritoService.getTotalCarrito();
+    this.carritoService.setPurchasedCart(this.carrito);
+    this.calcularTotalCompra();
   }
 
   public eliminar(product: Product): void {
