@@ -10,6 +10,7 @@ import { CarritoService } from '../models/carrito.service';
 export class Tab4Page {
   public carritoArray: any;
   public totalCompra: any;
+  public total:number=0;
   constructor(private carritoService: CarritoService) {  }
   // In tab4.page.ts
 
@@ -31,7 +32,13 @@ addToCart(cart: any) {
   this.carritoService.setPurchasedCart(cart);
 }
 
+// tab4.page.ts
 
+getTotal(cart:any) {
+  return cart.reduce((total:any, item:any) => {
+    return total + item.product.price * item.quantity; 
+  }, 0);
+}
 
 comprar(){
   for (let purchase of this.carritoArray){

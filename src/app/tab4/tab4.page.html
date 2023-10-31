@@ -22,6 +22,10 @@
                   {{item.product.price * item.quantity}}
                   <ion-button (click)="addToCart(purchase.cart)"> Comprar</ion-button>
                 </div>
+                <!-- tab4.page.html -->
+                <div>
+                  Total: {{ getTotal(purchase.cart) }} 
+                </div>
               </ion-card-title>
           </ion-card-header>
           <ion-card-content>
