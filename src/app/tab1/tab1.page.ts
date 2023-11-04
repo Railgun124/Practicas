@@ -1,5 +1,6 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { Product } from '../models/product.model';
+import { CarritoService } from '../models/carrito.service';
 
 @Component({
   selector: 'app-tab1',
@@ -16,43 +17,43 @@ export class Tab1Page {
     "Limpieza",
     "Farmacia"
   ];
-  public carrito: { [productId: string]: { product: Product, quantity: number } } = {};
+  public carrito: { [productId: string]: { product: Product, quantity: number, subtotal: number  } } = {};
   public totalCompra: number = 0
-  public carritoArray: { product: Product, quantity: number }[] = [];
 
-
-
-  constructor()  {
+  constructor(private carritoService: CarritoService)  {
     this.products.push({
       name: "Coca Cola",
       price: 25,
       description: "lorem ipsum dolor sit amet.",
       photo: "https://picsum.photos/500/300?random=1",
-      type: "Abarrotes"
+      type: "Abarrotes",
+      favorite: false
     });
     this.products.push({
       name: "Aguacate",
       price: 30,
       description: "lorem ipsum dolor sit amet.",
       photo: "https://picsum.photos/500/300?random=1",
-      type: "Frutas y Verduras"
+      type: "Frutas y Verduras",
+      favorite: false
     });
     this.products.push({
       name: "Jabón Zote",
       price: 19,
       description: "lorem ipsum dolor sit amet.",
       photo: "https://picsum.photos/500/300?random=1",
-      type: "Limpieza"
+      type: "Limpieza",
+      favorite: false
     });
     this.products.push({
       name: "Aspirina",
       price: 100,
       description: "lorem ipsum dolor sit amet.",
       photo: "https://picsum.photos/500/300?random=1",
-      type: "Farmacia"
+      type: "Farmacia",
+      favorite: false
     });
 
-    this.productsFounds = this.products;
     this.productsFounds = this.products;
   }
 
@@ -72,14 +73,20 @@ export class Tab1Page {
     if (this.carrito[productId]) {
       // Si el producto ya está en el carrito, incrementa la cantidad
       this.carrito[productId].quantity += 1;
+      this.carrito[productId].subtotal += this.carrito[productId].product.price;
     } else {
       // Si es la primera vez que se agrega, crea una entrada en el carrito
-      this.carrito[productId] = { product, quantity: 1 };
+      this.carrito[productId] = { product, quantity: 1, subtotal: product.price};
     }
-  
+    this.carritoService.setCarrito(this.carrito);
+    this.carritoService.setCar(this.carrito);
     // Calcula el total de la compra
     this.calcularTotalCompra();
-    this.actualizarCarritoArray();
+  }
+
+  public cambiarFavorito(ind: number): void {
+    this.productsFounds[ind].favorite = !this.productsFounds[ind].favorite;
+    this.carritoService.setFavorito(this.productsFounds.filter((item) => item.favorite== true));
   }
 
   private calcularTotalCompra(): void {
@@ -88,10 +95,27 @@ export class Tab1Page {
       const item = this.carrito[productId];
       this.totalCompra += item.product.price * item.quantity;
     }
+    this.carritoService.setTotalCarrito(this.totalCompra);
+  }
+
+  ionViewWillEnter() {
+    this.carrito = this.carritoService.getCar();
+    this.totalCompra = this.carritoService.getTotalCarrito();
+    this.carritoService.setPurchasedCart(this.carrito);
+    this.calcularTotalCompra();
+  }
+
+  public eliminar(product: Product): void {
+    const productId = product.name;
+
+    if (this.carrito[productId].quantity > 1) {
+      this.carrito[productId].quantity -= 1;
+    } else {
+      delete this.carrito[productId];
+    }
+    this.calcularTotalCompra();
   }
   
-  private actualizarCarritoArray() {
-    this.carritoArray = Object.values(this.carrito);
-  }
+  
   
 }

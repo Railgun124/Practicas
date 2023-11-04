@@ -34,3 +34,27 @@
     flex-direction: row;
     justify-content: start;
   }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    font-weight: bold;
+  }
+  
+  .botones {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .favorito {
+    --background: transparent;
+  }

@@ -1,0 +1,66 @@
+.ion-content-custom {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr); /* Una columna */
+  grid-gap: 20px; /* Espacio entre los grupos de cards */
+}
+
+.card-container {
+  display: flex;
+  justify-content: space-between; /* Coloca los cards uno al lado del otro */
+}
+
+.custom-card {
+  width: 48%; /* Ancho de cada card */
+}
+
+.Frutas_y_Verduras ion-badge {
+  background-color: green;
+}
+
+.Limpieza ion-badge {
+  background-color: blue;
+}
+
+.Abarrotes ion-badge {
+  background-color: red;
+}
+
+.Farmacia ion-badge {
+  background-color: orange;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+}
+
+.table, .table-compra {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+}
+
+.table th {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  vertical-align: top;
+  text-align: right;
+}
+
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+}
+
+.table-compra th {
+  border-top: 1px solid #dee2e6;
+  text-align: right;
+}
